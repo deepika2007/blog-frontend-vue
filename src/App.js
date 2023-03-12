@@ -1,24 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import MasterComponent from "./routes";
+import { BrowserRouter } from "react-router-dom";
+import { CookiesProvider } from "react-cookie";
+// import EmptyBag from "./Components/EmptyBag";
+
+const font = "'Poppins', sans-serif";
 
 function App() {
+  const theme = createTheme({
+    input: {
+      "&::placeholder": {
+        opacity: 1,
+      },
+    },
+    palette: {
+      primary: {
+        main: "#e86a0b",
+      },
+      
+      secondary: {
+        main: "#ff8600",
+      },
+    },
+    typography: {
+      fontFamily: font,
+    },
+  });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <CookiesProvider>
+            <MasterComponent />
+          </CookiesProvider>
+        </BrowserRouter>
+      </ThemeProvider>
+    </>
   );
 }
 

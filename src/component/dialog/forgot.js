@@ -1,8 +1,10 @@
 import React from 'react';
-import { Box, Button, Dialog, FormHelperText, OutlinedInput, Paper, Typography } from '@mui/material';
+import { Box, Button, Dialog, FormHelperText, OutlinedInput, Paper, Typography, IconButton } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { useFormik } from "formik";
 import * as yup from "yup";
+import CloseIcon from "@mui/icons-material/Close";
+import './index.scss';
 
 const ForgotPassword = ({ open, handleClose, handleSignIn }) => {
 
@@ -26,7 +28,12 @@ const ForgotPassword = ({ open, handleClose, handleSignIn }) => {
             >
                 <Box component={'form'} noValidate onSubmit={formik?.handleSubmit}>
                     <Paper sx={{ width: '400px', padding: '1.5rem' }}>
-                        <Typography variant='h5'>Reset Your Password</Typography>
+                        <Grid className='close_icon_div'>
+                            <Typography variant='h5'>Reset Your Password</Typography>
+                            <IconButton onClick={handleClose}>
+                                <CloseIcon sx={{ fontSize: '37px', color: 'black' }} className='close_icon' />
+                            </IconButton>
+                        </Grid>
                         <Grid sx={{ marginTop: "19px" }}>
                             <Typography >Please enter your email address. You will receive a link to create a new password via email.</Typography>
                         </Grid>

@@ -1,9 +1,10 @@
 import React from 'react';
-import { Button, Dialog, FormHelperText, OutlinedInput, Paper, Typography, Box, Checkbox } from '@mui/material';
+import { Button, Dialog, FormHelperText, OutlinedInput, Paper, Typography, Box, Checkbox, IconButton } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { useFormik } from "formik";
 import * as yup from "yup";
-
+import CloseIcon from "@mui/icons-material/Close";
+import './index.scss';
 
 const Signup = ({ open, handleClose, handleSignIn }) => {
 
@@ -38,7 +39,12 @@ const Signup = ({ open, handleClose, handleSignIn }) => {
             >
                 <Box component={'form'} noValidate onSubmit={formik?.handleSubmit}>
                     <Paper sx={{ width: '400px', padding: '1.5rem' }}>
-                        <Typography variant='h5'>Signup</Typography>
+                        <Grid className='close_icon_div'>
+                            <Typography variant='h5'>Signup</Typography>
+                            <IconButton onClick={handleClose}>
+                                <CloseIcon sx={{ fontSize: '37px', color: 'black' }} className='close_icon' />
+                            </IconButton>
+                        </Grid>
                         <Grid sx={{ marginTop: "19px" }}>
                             <Typography >Your Name</Typography>
                             <OutlinedInput

@@ -30,18 +30,18 @@ const MasterComponent = () => {
             <Button variant='contained' onClick={() => setRegister(true)}>Sign Up</Button>
             {register && <Signup
                 open={register}
-                handleClose={() => setRegister(true)}
+                handleClose={() => setRegister(false)}
                 handleSignIn={() => handleSignIn()}
             />}
             {login && <Signin
                 open={login}
-                handleClose={() => setLogin(true)}
+                handleClose={() => setLogin(false)}
                 handleSignUp={() => handleSignUp()}
                 handleForgot={() => handleForgot()}
             />}
             {forgot && <ForgotPassword
                 open={forgot}
-                handleClose={() => setForgot(true)}
+                handleClose={() => setForgot(false)}
                 handleSignIn={() => handleSignIn()}
             />}
         </>

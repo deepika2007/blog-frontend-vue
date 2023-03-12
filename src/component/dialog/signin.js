@@ -1,10 +1,12 @@
 import React from 'react';
-import { Box, Button, Dialog, FormHelperText, OutlinedInput, Paper, Typography ,Checkbox} from '@mui/material';
+import { Box, Button, Dialog, FormHelperText, OutlinedInput, Paper, Typography, Checkbox, IconButton } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { useFormik } from "formik";
 import * as yup from "yup";
+import CloseIcon from "@mui/icons-material/Close";
+import './index.scss';
 
-const Signin = ({ open, handleClose, handleSignUp ,handleForgot}) => {
+const Signin = ({ open, handleClose, handleSignUp, handleForgot }) => {
 
     const validationSchema = yup.object({
         email: yup.string().required("Email  is required"),
@@ -28,7 +30,12 @@ const Signin = ({ open, handleClose, handleSignUp ,handleForgot}) => {
             >
                 <Box component={'form'} noValidate onSubmit={formik?.handleSubmit}>
                     <Paper sx={{ width: '400px', padding: '1.5rem' }}>
-                        <Typography variant='h5'>Login</Typography>
+                        <Grid className='close_icon_div'>
+                            <Typography variant='h5'>Login</Typography>
+                            <IconButton onClick={handleClose}>
+                                <CloseIcon sx={{ fontSize: '37px', color: 'black' }} className='close_icon' />
+                            </IconButton>
+                        </Grid>
                         <Grid sx={{ marginTop: "19px" }}>
                             <Typography >Email Address</Typography>
                             <OutlinedInput

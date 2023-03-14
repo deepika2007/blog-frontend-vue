@@ -1,50 +1,33 @@
-import React, { useState } from 'react'
-import { Button } from '@mui/material';
-import Signup from '../component/dialog/signup';
-import Signin from '../component/dialog/signin';
-import ForgotPassword from '../component/dialog/forgot';
+import React, { Suspense, lazy } from 'react';
+import { withCookies } from "react-cookie";
+import { Navigate, Route, Routes } from 'react-router-dom';
+const Dashboard = lazy(() => import("../component/dashboard"));
 
-const MasterComponent = () => {
-    const [register, setRegister] = useState(false);
-    const [login, setLogin] = useState(false);
-    const [forgot, setForgot] = useState(false);
-
-    const handleSignIn = () => {
-        setRegister(false)
-        setLogin(true)
-        setForgot(false)
-    }
-
-    const handleSignUp = () => {
-        setLogin(false)
-        setRegister(true)
-    }
-
-    const handleForgot = () => {
-        setForgot(true)
-        setLogin(false)
-    }
+const MasterComponent = ({ cookies }) => {
+    const token = cookies.get("token");
     return (
         <>
-            
-            <Button variant='contained' onClick={() => setRegister(true)}>Sign Up</Button>
-            {register && <Signup
-                open={register}
-                handleClose={() => setRegister(false)}
-                handleSignIn={() => handleSignIn()}
-            />}
-            {login && <Signin
-                open={login}
-                handleClose={() => setLogin(false)}
-                handleSignUp={() => handleSignUp()}
-                handleForgot={() => handleForgot()}
-            />}
-            {forgot && <ForgotPassword
-                open={forgot}
-                handleClose={() => setForgot(false)}
-                handleSignIn={() => handleSignIn()}
-            />}
+            <Suspense>
+                {token ? (
+                    <main className='private-main'>
+                        <div className='private-container'>
+                            <Routes>
+                                <Route path='*' element={<Navigate replace to='/' />} />
+                            </Routes>
+                        </div>
+                    </main>
+                ) : (
+                    <main className='public-main'>
+                        <div className='public-container'>
+                            <Routes>
+                                <Route path='/dashboard' element={<Dashboard />} />
+                                <Route path='*' element={<Navigate replace to="/dashboard" />} />
+                            </Routes>
+                        </div>
+                    </main>
+                )}
+            </Suspense>
         </>
     )
 }
-export default MasterComponent;
+export default withCookies(MasterComponent);
